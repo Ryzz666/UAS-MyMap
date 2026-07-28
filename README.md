@@ -30,8 +30,8 @@ Project ini dibuat sebagai salah satu tugas mata kuliah **Pemrograman Mobile** m
 
 ## Identitas
 
-**Nama** : NAUFAL DZAKI NIARDI
+**Nama** : M.Yana Mabruri
 
-**NIM** : 23083000159
+**NIM** : 23083000128
 
 **Mata Kuliah** : Pemrograman Mobile

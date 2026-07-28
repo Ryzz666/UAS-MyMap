@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.naufal.mymap"
+    namespace = "com.rury.mymap"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.naufal.mymap"
+        applicationId = "com.rury.mymap"
         minSdk = 26
         targetSdk = 37
         versionCode = 1
