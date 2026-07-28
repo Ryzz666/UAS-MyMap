@@ -1,6 +1,6 @@
 # MyMap
-<img src="https://github.com/user-attachments/assets/7f14b0d7-6573-40b6-880c-45cdea307cfa" width="250" alt="Screen 1">
-<img src="https://github.com/user-attachments/assets/d603df13-c679-4b88-adc8-b46d0e205063" width="250" alt="Screen 2">
+<img src="https://github.com/user-attachments/assets/d086dff6-59a4-4923-a1b3-e033222ad812" alt="image" width="250" />
+<img src="https://github.com/user-attachments/assets/908a3663-0a28-4537-b72f-0c72c84fd571" alt="image" width="250" />
 
 
 ## Deskripsi
