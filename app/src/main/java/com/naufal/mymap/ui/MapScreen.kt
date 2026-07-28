@@ -1,6 +1,8 @@
 package com.naufal.mymap.ui
 
 import android.util.Log
+import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -126,25 +128,11 @@ fun MapScreen(modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        if (distance.isNotEmpty() || duration.isNotEmpty()) {
-                            Text(
-                                text = "$duration ($distance)",
-                                style = MaterialTheme.typography.titleLarge,
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                            Text(
-                                text = "Mode: $transportMode",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                            )
-                        } else {
-                            Text(
-                                text = "Cari Rute Perjalanan",
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        }
-                    }
+                    Text(
+                        text = "Cari Rute Perjalanan",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.weight(1f)
+                    )
                     Button(
                         onClick = { 
                             fetchRoute()
@@ -225,28 +213,6 @@ fun MapScreen(modifier: Modifier = Modifier) {
                         Text("Reset")
                     }
                     
-                    if (distance.isNotEmpty() || duration.isNotEmpty()) {
-                        Spacer(modifier = Modifier.height(20.dp))
-                        ElevatedCard(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(20.dp),
-                            colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-                        ) {
-                            Column(modifier = Modifier.padding(20.dp)) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(Icons.Rounded.Place, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                                    Spacer(modifier = Modifier.width(16.dp))
-                                    Text(text = "Jarak: $distance", style = MaterialTheme.typography.bodyLarge)
-                                }
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(Icons.Rounded.AccessTime, contentDescription = null, tint = Color.Red)
-                                    Spacer(modifier = Modifier.width(16.dp))
-                                    Text(text = "Waktu: $duration", style = MaterialTheme.typography.bodyLarge)
-                                }
-                            }
-                        }
-                    }
                     Spacer(modifier = Modifier.height(40.dp))
                 }
             }
@@ -282,6 +248,62 @@ fun MapScreen(modifier: Modifier = Modifier) {
                         color = MaterialTheme.colorScheme.primary,
                         width = 15f
                     )
+                }
+            }
+
+            AnimatedVisibility(
+                visible = distance.isNotEmpty() || duration.isNotEmpty(),
+                enter = fadeIn() + slideInVertically(initialOffsetY = { it }),
+                exit = fadeOut() + slideOutVertically(targetOffsetY = { it }),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp, start = 16.dp, end = 16.dp)
+            ) {
+                ElevatedCard(
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
+                    modifier = Modifier.wrapContentSize()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Column {
+                            Text(
+                                text = duration,
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = distance,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        
+                        Box(
+                            modifier = Modifier
+                                .width(1.dp)
+                                .height(32.dp)
+                                .background(MaterialTheme.colorScheme.outlineVariant)
+                        )
+                        
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                imageVector = if (selectedMode == "driving") Icons.Rounded.DirectionsCar else Icons.Rounded.TwoWheeler,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.secondary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = transportMode,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                 }
             }
         }
